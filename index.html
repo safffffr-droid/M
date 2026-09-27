@@ -1,103 +1,108 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0b0b0c">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="نقاط الفريق">
-  <link rel="manifest" href="./manifest.webmanifest">
-  <title>نقاط الفريق - ك 4</title>
-  <style>
-    *{box-sizing:border-box}html,body{margin:0;height:100%;background:#0b0b0c;color:#eee;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}
-    body{overflow:hidden}.app{height:100%;display:flex;flex-direction:column;background:#0b0b0c}
-    header{height:64px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #29292d;background:#101012}
-    h1{font-size:18px;margin:0;font-weight:700}.sub{font-size:11px;color:#8f9097;margin-top:3px}
-    .head-actions{display:flex;gap:8px}.btn{border:1px solid #303137;background:#17181b;color:#eee;border-radius:12px;padding:9px 11px;font-size:13px}
-    .map{position:relative;flex:1;overflow:hidden;background-color:#151619;
-      background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
-      background-size:42px 42px}
-    .road{position:absolute;background:#202226;border:1px solid #2d3035;transform-origin:center}
-    .r1{width:140%;height:18px;top:28%;left:-20%;transform:rotate(-17deg)}.r2{width:130%;height:12px;top:61%;left:-15%;transform:rotate(26deg)}
-    .r3{width:16px;height:120%;top:-10%;left:63%;transform:rotate(9deg)}
-    .map-label{position:absolute;color:#55575e;font-size:12px;letter-spacing:.3px}
-    .label1{top:17%;left:12%}.label2{top:72%;right:14%}.label3{top:43%;left:70%}
-    .pin{position:absolute;left:50%;top:45%;transform:translate(-50%,-100%);width:46px;height:46px;border-radius:50% 50% 50% 0;transform-origin:center;rotate:-45deg;background:#e8e8e8;box-shadow:0 5px 18px #0008}
-    .pin:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#0b0b0c;left:16px;top:16px}
-    .point-list{position:absolute;right:12px;top:12px;display:flex;flex-direction:column;gap:7px;max-width:220px}
-    .point-card{background:#101114e8;border:1px solid #2d2f34;border-radius:12px;padding:9px 11px;backdrop-filter:blur(8px);font-size:12px}
-    .point-card b{font-size:13px}.point-card span{display:block;color:#85878e;margin-top:2px}
-    .tools{padding:10px;display:grid;grid-template-columns:repeat(5,1fr);gap:7px;border-top:1px solid #29292d;background:#101012}
-    .tool{min-height:58px;border:1px solid #303137;background:#18191c;color:#eee;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:11px}
-    .tool .ico{font-size:20px;line-height:1}.tool:active{transform:scale(.97)}
-    dialog{width:min(92vw,420px);border:1px solid #303137;border-radius:18px;background:#111214;color:#eee;padding:0;box-shadow:0 20px 70px #000b}
-    dialog::backdrop{background:#0009;backdrop-filter:blur(3px)}.dlg{padding:18px}.dlg h2{font-size:18px;margin:0 0 14px}
-    label{display:block;font-size:12px;color:#a5a6ad;margin:10px 0 6px}input,select{width:100%;padding:12px;border-radius:11px;border:1px solid #34363c;background:#1a1b1f;color:#eee;font-size:14px}
-    .symbols{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.sym{padding:10px 5px;border:1px solid #303137;background:#18191c;color:#ddd;border-radius:10px;font-size:11px;text-align:center}.sym.active{border-color:#eee;background:#25262a;color:#fff}
-    .dlg-actions{display:flex;gap:8px;margin-top:16px}.dlg-actions button{flex:1;padding:12px;border-radius:11px;border:1px solid #34363c;background:#1a1b1f;color:#eee}.primary{background:#eee!important;color:#111!important}
-    .toast{position:absolute;left:50%;bottom:86px;transform:translateX(-50%);background:#eee;color:#111;padding:9px 13px;border-radius:12px;font-size:12px;display:none;z-index:10}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0d12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="نقاط الفريق">
+<link rel="manifest" href="./manifest.webmanifest">
+<title>نقاط الفريق - ك 4</title>
+<style>
+:root{--bg:#080b10;--panel:#11161e;--panel2:#171d27;--line:#29313d;--text:#f4f6f8;--muted:#8d98a6;--accent:#dce3ea;--shadow:0 18px 50px #0009}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Tahoma,Arial,sans-serif}
+button,input{font:inherit}.app{height:100%;display:flex;flex-direction:column;position:relative;background:var(--bg)}
+.topbar{position:absolute;z-index:20;top:max(12px,env(safe-area-inset-top));left:12px;right:12px;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
+.brand,.top-actions>*{pointer-events:auto}.brand{display:flex;align-items:center;gap:10px;padding:9px 13px;background:#0c1118e8;border:1px solid #303946;border-radius:16px;box-shadow:0 8px 25px #0007;backdrop-filter:blur(18px)}
+.logo{width:34px;height:34px;border-radius:11px;background:#e9edf0;color:#10141a;display:grid;place-items:center;font-size:18px;font-weight:800}.brand h1{margin:0;font-size:14px}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.top-actions{display:flex;gap:8px}.iconbtn{width:42px;height:42px;border-radius:14px;border:1px solid #303946;background:#0c1118e8;color:#edf1f4;display:grid;place-items:center;box-shadow:0 8px 25px #0007;backdrop-filter:blur(18px);font-size:18px}
+.map{position:relative;flex:1;overflow:hidden;background:#161b20}
+.map:before{content:"";position:absolute;inset:0;background:
+linear-gradient(18deg,transparent 0 43%,#242b31 43.2% 45%,transparent 45.2%),
+linear-gradient(116deg,transparent 0 51%,#252c32 51.2% 53%,transparent 53.2%),
+linear-gradient(8deg,transparent 0 72%,#222930 72.2% 73.5%,transparent 73.7%),
+linear-gradient(90deg,transparent 0 31%,#20272d 31.2% 32.2%,transparent 32.4%),
+linear-gradient(32deg,transparent 0 19%,#1e252b 19.2% 20%,transparent 20.2%),
+radial-gradient(circle at 30% 35%,#222a30 0 8%,transparent 8.2%),
+radial-gradient(circle at 73% 64%,#20272d 0 11%,transparent 11.2%),
+#151a1f}
+.map:after{content:"";position:absolute;inset:0;opacity:.35;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:52px 52px}
+.terrain{position:absolute;border:1px solid #394149;background:#1b2228;border-radius:45% 55% 50% 40%;opacity:.7}.t1{width:190px;height:120px;top:25%;left:8%;transform:rotate(-18deg)}.t2{width:240px;height:150px;right:-20px;bottom:26%;transform:rotate(17deg)}.t3{width:120px;height:90px;left:38%;bottom:13%;transform:rotate(9deg)}
+.roadlabel{position:absolute;color:#7b858f;font-size:10px;z-index:2;letter-spacing:.2px}.l1{left:12%;top:40%}.l2{right:13%;top:25%}.l3{left:63%;bottom:34%}.l4{right:29%;bottom:15%}
+.center{position:absolute;z-index:5;left:50%;top:47%;transform:translate(-50%,-50%);display:grid;place-items:center}.pulse{width:76px;height:76px;border-radius:50%;background:#e9edf015;border:1px solid #e9edf030;animation:pulse 2.2s infinite}.marker{position:absolute;width:46px;height:46px;border-radius:50% 50% 50% 0;background:#f2f4f5;transform:rotate(-45deg);box-shadow:0 10px 30px #000a}.marker i{position:absolute;width:13px;height:13px;border-radius:50%;background:#11161e;left:16px;top:16px}@keyframes pulse{50%{transform:scale(1.18);opacity:.55}}
+.coords{position:absolute;z-index:8;left:50%;top:calc(47% + 45px);transform:translateX(-50%);padding:6px 9px;border:1px solid #303946;background:#0d1218dd;border-radius:9px;color:#b7c0ca;font-size:9px;backdrop-filter:blur(12px)}
+.bottom{position:absolute;z-index:20;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:9px}
+.sheet{background:#0d1219ed;border:1px solid #303946;border-radius:20px;padding:10px;box-shadow:var(--shadow);backdrop-filter:blur(20px)}
+.tools{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.tool{height:55px;border:1px solid #2d3540;background:#171d26;color:#dfe5ea;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px}.tool strong{font-size:19px;font-weight:500;line-height:1}.tool.active{background:#e9edf0;color:#11161e;border-color:#e9edf0}
+.status{display:flex;align-items:center;justify-content:space-between;padding:2px 5px 0;color:#8994a1;font-size:10px}.status b{color:#dce2e7;font-weight:600}
+dialog{width:min(92vw,430px);margin:auto;padding:0;border:1px solid #333d49;border-radius:22px;background:#10151c;color:var(--text);box-shadow:0 25px 80px #000d}dialog::backdrop{background:#000b;backdrop-filter:blur(7px)}.dlg{padding:20px}.dlghead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.dlg h2{font-size:19px;margin:0}.close{border:0;background:#1b222b;color:#b9c2cb;border-radius:10px;width:34px;height:34px}
+label{display:block;color:#9aa5b1;font-size:11px;margin:13px 0 7px}input{width:100%;padding:13px;border-radius:12px;border:1px solid #303946;background:#171d26;color:#fff;outline:none}input:focus{border-color:#8e99a5}
+.symbols{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.sym{height:58px;border:1px solid #303946;background:#171d26;color:#dfe4e8;border-radius:12px;font-size:10px}.sym em{display:block;font-style:normal;font-size:18px;margin-bottom:4px}.sym.active{background:#e9edf0;color:#10151b;border-color:#e9edf0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}.actions button{height:46px;border-radius:12px;border:1px solid #303946;background:#171d26;color:#e7ebee}.actions .primary{background:#e9edf0;color:#10151b;border-color:#e9edf0}
+.list{position:absolute;z-index:10;top:76px;right:12px;left:12px;display:flex;flex-direction:column;gap:7px;pointer-events:none}.card{align-self:flex-end;max-width:230px;background:#0d1219e8;border:1px solid #303946;border-radius:13px;padding:9px 11px;backdrop-filter:blur(14px);box-shadow:0 10px 30px #0006}.card b{font-size:11px}.card span{display:block;color:#8994a1;font-size:9px;margin-top:3px}
+.toast{position:absolute;z-index:50;left:50%;bottom:120px;transform:translateX(-50%);background:#eef1f3;color:#10151b;border-radius:12px;padding:9px 13px;font-size:11px;display:none;box-shadow:0 12px 35px #0008}
+@media(min-width:700px){.bottom{left:50%;right:auto;width:620px;transform:translateX(-50%)}}
+</style>
 </head>
 <body>
 <div class="app">
-  <header>
-    <div><h1>نقاط الفريق - ك 4</h1><div class="sub">لوحة نقاط محلية — تعمل بدون حساب</div></div>
-    <div class="head-actions"><button class="btn" id="clearBtn">مسح</button></div>
-  </header>
-
-  <main class="map" id="map">
-    <div class="road r1"></div><div class="road r2"></div><div class="road r3"></div>
-    <div class="map-label label1">منطقة A</div><div class="map-label label2">منطقة B</div><div class="map-label label3">منطقة C</div>
-    <div class="pin" title="نقطة تجريبية"></div>
-    <div class="point-list" id="pointList"></div>
-    <div class="toast" id="toast"></div>
-  </main>
-
-  <nav class="tools">
-    <button class="tool" data-action="point"><span class="ico">●</span>نقطة</button>
-    <button class="tool" data-action="path"><span class="ico">⌁</span>مسار</button>
-    <button class="tool" data-action="rect"><span class="ico">□</span>مستطيل</button>
-    <button class="tool" data-action="circle"><span class="ico">○</span>دائرة</button>
-    <button class="tool" data-action="poly"><span class="ico">⬡</span>مضلع</button>
-  </nav>
-</div>
-
-<dialog id="pointDlg">
-  <form method="dialog" class="dlg" id="pointForm">
-    <h2>إضافة نقطة</h2>
-    <label>اسم النقطة</label><input id="pointName" placeholder="مثال: الموقع الرئيسي" maxlength="40" required>
-    <label>الرمز</label>
-    <div class="symbols" id="symbols">
-      <button type="button" class="sym active" data-symbol="●">نقطة عامة</button>
-      <button type="button" class="sym" data-symbol="⌂">منزل</button>
-      <button type="button" class="sym" data-symbol="▣">مبنى</button>
-      <button type="button" class="sym" data-symbol="▤">مدرسة</button>
-      <button type="button" class="sym" data-symbol="+">مرفق</button>
-      <button type="button" class="sym" data-symbol="P">موقف</button>
-      <button type="button" class="sym" data-symbol="♧">مزرعة</button>
-      <button type="button" class="sym" data-symbol="★">مخصص</button>
+<header class="topbar">
+  <div class="brand"><div class="logo">●</div><div><h1>نقاط الفريق</h1><small>ك 4 · لوحة النقاط</small></div></div>
+  <div class="top-actions"><button class="iconbtn" id="locBtn" aria-label="الموقع">⌖</button><button class="iconbtn" id="clearBtn" aria-label="مسح">⌫</button></div>
+</header>
+<main class="map">
+  <div class="terrain t1"></div><div class="terrain t2"></div><div class="terrain t3"></div>
+  <div class="roadlabel l1">الطريق الرئيسي</div><div class="roadlabel l2">المنطقة الشمالية</div><div class="roadlabel l3">المنطقة الوسطى</div><div class="roadlabel l4">المنطقة الجنوبية</div>
+  <div class="center"><div class="pulse"></div><div class="marker"><i></i></div></div>
+  <div class="coords">مركز العرض · نقطة تجريبية</div>
+  <div class="list" id="pointList"></div><div class="toast" id="toast"></div>
+</main>
+<section class="bottom">
+  <div class="sheet">
+    <div class="tools">
+      <button class="tool active" data-action="point"><strong>●</strong>نقطة</button>
+      <button class="tool" data-action="path"><strong>⌁</strong>مسار</button>
+      <button class="tool" data-action="rect"><strong>□</strong>مربع</button>
+      <button class="tool" data-action="circle"><strong>○</strong>دائرة</button>
+      <button class="tool" data-action="poly"><strong>⬡</strong>مضلع</button>
     </div>
-    <div class="dlg-actions"><button type="button" id="cancelBtn">إلغاء</button><button class="primary" type="submit">حفظ</button></div>
-  </form>
+    <div class="status"><span>الحالة: <b>جاهز</b></span><span id="count">0 نقطة محفوظة</span></div>
+  </div>
+</section>
+</div>
+<dialog id="pointDlg">
+<form class="dlg" id="pointForm">
+  <div class="dlghead"><h2>إضافة نقطة</h2><button type="button" class="close" id="cancelBtn">×</button></div>
+  <label>اسم النقطة</label><input id="pointName" maxlength="40" placeholder="اكتب اسمًا واضحًا" required>
+  <label>اختر رمزًا</label>
+  <div class="symbols">
+    <button type="button" class="sym active" data-symbol="●"><em>●</em>نقطة عامة</button>
+    <button type="button" class="sym" data-symbol="⌂"><em>⌂</em>منزل</button>
+    <button type="button" class="sym" data-symbol="▣"><em>▣</em>مبنى</button>
+    <button type="button" class="sym" data-symbol="▤"><em>▤</em>مدرسة</button>
+    <button type="button" class="sym" data-symbol="+"><em>+</em>مرفق</button>
+    <button type="button" class="sym" data-symbol="P"><em>P</em>موقف</button>
+    <button type="button" class="sym" data-symbol="♧"><em>♧</em>مزرعة</button>
+    <button type="button" class="sym" data-symbol="★"><em>★</em>مخصص</button>
+  </div>
+  <div class="actions"><button type="button" id="cancelBtn2">إلغاء</button><button class="primary" type="submit">حفظ النقطة</button></div>
+</form>
 </dialog>
-
 <script>
-const KEY="team-points-k4";
-const dlg=document.getElementById("pointDlg"), form=document.getElementById("pointForm"), list=document.getElementById("pointList"), toast=document.getElementById("toast");
-let symbol="●";
-function getPoints(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch{return[]}}
-function savePoints(p){localStorage.setItem(KEY,JSON.stringify(p));render()}
-function render(){const p=getPoints();list.innerHTML=p.slice(-8).reverse().map(x=>'<div class="point-card"><b>'+esc(x.symbol)+' '+esc(x.name)+'</b><span>محفوظ محلياً</span></div>').join("")}
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function showToast(t){toast.textContent=t;toast.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>toast.style.display="none",1800)}
-document.querySelectorAll(".tool").forEach(b=>b.onclick=()=>{const a=b.dataset.action;if(a==="point")dlg.showModal();else showToast("هذه أداة واجهة تجريبية حالياً")});
+const KEY="team-points-k4-v2",dlg=document.getElementById("pointDlg"),form=document.getElementById("pointForm"),list=document.getElementById("pointList"),count=document.getElementById("count"),toast=document.getElementById("toast");let symbol="●";
+const get=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch{return[]}};
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+function render(){const p=get();count.textContent=p.length+" نقطة محفوظة";list.innerHTML=p.slice(-3).reverse().map(x=>'<div class="card"><b>'+esc(x.symbol)+" "+esc(x.name)+'</b><span>محفوظة على الجهاز</span></div>').join("")}
+function toastMsg(t){toast.textContent=t;toast.style.display="block";clearTimeout(window.to);window.to=setTimeout(()=>toast.style.display="none",1700)}
 document.querySelectorAll(".sym").forEach(b=>b.onclick=()=>{document.querySelectorAll(".sym").forEach(x=>x.classList.remove("active"));b.classList.add("active");symbol=b.dataset.symbol});
-form.addEventListener("submit",e=>{e.preventDefault();const name=document.getElementById("pointName").value.trim();if(!name)return;const p=getPoints();p.push({name,symbol});savePoints(p);form.reset();symbol="●";document.querySelectorAll(".sym").forEach(x=>x.classList.remove("active"));document.querySelector(".sym").classList.add("active");dlg.close();showToast("تم حفظ النقطة على الجهاز")});
-document.getElementById("cancelBtn").onclick=()=>dlg.close();
-document.getElementById("clearBtn").onclick=()=>{if(confirm("حذف جميع النقاط المحفوظة؟")){localStorage.removeItem(KEY);render();showToast("تم المسح")}};
-if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+document.querySelectorAll(".tool").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tool").forEach(x=>x.classList.remove("active"));b.classList.add("active");if(b.dataset.action==="point")dlg.showModal();else toastMsg("أداة "+b.textContent.trim()+" جاهزة للتصميم")});
+form.onsubmit=e=>{e.preventDefault();const name=document.getElementById("pointName").value.trim();if(!name)return;const p=get();p.push({name,symbol});localStorage.setItem(KEY,JSON.stringify(p));form.reset();symbol="●";document.querySelectorAll(".sym").forEach(x=>x.classList.remove("active"));document.querySelector(".sym").classList.add("active");dlg.close();render();toastMsg("تم حفظ النقطة")};
+document.getElementById("cancelBtn").onclick=()=>dlg.close();document.getElementById("cancelBtn2").onclick=()=>dlg.close();
+document.getElementById("clearBtn").onclick=()=>{if(confirm("حذف النقاط المحفوظة؟")){localStorage.removeItem(KEY);render();toastMsg("تم حذف النقاط")}};
+document.getElementById("locBtn").onclick=()=>toastMsg("الموقع التجريبي محدد في وسط العرض");
 render();
+if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 </script>
 </body>
 </html>
